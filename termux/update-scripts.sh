@@ -40,6 +40,7 @@ done
 # close block
 echo "" >> ~/.zshrc
 echo "$END_MARKER" >> "$ZSHRC"
+echo "" >> ~/.zshrc
 
 # finish
 echo ""
