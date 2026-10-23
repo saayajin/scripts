@@ -4,6 +4,10 @@
 # update scripts and add new ones to zsh alias.
 # required: git
 
+# colors
+LB='\e[1;34m' # light blue
+R='\e[0m'     # no color
+
 # remove old repo dir
 rm -rf ~/.scripts
 
@@ -11,7 +15,7 @@ rm -rf ~/.scripts
 git clone --single-branch --branch main https://github.com/majinsaay/scripts.git ~/.scripts
 
 # change working dir
-cd ~/.scripts || exit 1
+cd ~/.scripts/termux || exit 1
 
 # make executable
 chmod u+x *
@@ -30,15 +34,16 @@ echo "" >> ~/.zshrc
 
 # make alias for each script
 for i in *.sh; do
-  echo -e "alias ${i%.sh}='. ~/.scripts/$i'" >> ~/.zshrc
+  echo -e "alias ${i%.sh}='. ~/.scripts/termux/$i'" >> ~/.zshrc
 done
 
 # close block
 echo "" >> ~/.zshrc
 echo "$END_MARKER" >> "$ZSHRC"
 
+# finish
 echo ""
-echo "Done"
+echo "${LB}Done"
 echo ""
-echo "Press any key to exit..."
+echo "${R}Press any key to exit..."
 read -k 1 -r -s

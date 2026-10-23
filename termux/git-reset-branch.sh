@@ -1,13 +1,13 @@
 #!/bin/zsh
 # shellcheck shell=bash
 
-# reset any branch, deleting all commit history but keeping files.
+# reset any branch, deleting all commit history.
 # required: git
 
 # colors
 LG='\e[1;32m' # light green
 LB='\e[1;34m' # light blue
-R='\e[0m'     # reset color / no color
+R='\e[0m'     # no color
 
 git checkout --orphan latest_branch
 git add -A
@@ -26,8 +26,9 @@ git branch -D $BRANCH
 git branch -m $BRANCH
 git push -f origin $BRANCH
 
+# finish
 echo ""
-echo "${LB}DONE"
+echo "${LB}Done"
 echo ""
 echo "${R}Press any key to exit..."
 read -k 1 -r -s

@@ -4,19 +4,23 @@
 # compress all png files.
 # required: oxipng
 
+# colors
+LB='\e[1;34m' # light blue
+R='\e[0m'     # no color
+
 # create empty lists
 touch .list-png.txt .to-compress-png.txt .compressed-png.txt
 
 # create png file list
-ls *.{png,PNG}(N) > .list-png.txt
+ls *.[pP][nN][gG](N) > .list-png.txt
 
 # create to-compress-png list
 diff --suppress-common-lines .list-png.txt .compressed-png.txt | grep "^<\|^>" | sed "s/^. //g" > .to-compress-png.txt
 
 # compress and add to compressed-png
-tocom=$(cat .to-compress-png.txt)
+tocom=("${(@f)$(cat .to-compress-png.txt)}")
 mkdir -p .old-image
-for file in $tocom; do
+for file in "${tocom[@]}"; do
   oxipng -q -o 2 --out="${file%.*}.temp.png" "$file"
   touch -r "$file" "${file%.*}.temp.png"
   mv "$file" .old-image
@@ -28,8 +32,9 @@ done
 # cleanup
 rm -rf .list-png.txt .to-compress-png.txt
 
+# finish
 echo ""
-echo "Done"
+echo "${LB}Done"
 echo ""
-echo "Press any key to exit..."
+echo "${R}Press any key to exit..."
 read -k 1 -r -s

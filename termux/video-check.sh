@@ -12,9 +12,9 @@ errors=0
 LR='\e[1;31m' # light red
 LG='\e[1;32m' # light green
 LB='\e[1;34m' # light blue
-R='\e[0m'     # reset color / no color
+R='\e[0m'     # no color
 
-for i in *.{mp4,MP4,mkv,MKV}(N); do
+for i in *.([mM][pP]4|[mM][kK][vV](N); do
   total=$((total + 1))
   echo "${LG}Verifying: ${R}$i"
   ffmpeg -v error -i "$i" -f null - 2>"${i}.log"
@@ -47,6 +47,7 @@ else
   rm -f error.log
 fi
 
+# finish
 echo ""
 echo "${R}Press any key to exit..."
 read -k 1 -r -s
