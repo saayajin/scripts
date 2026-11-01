@@ -13,13 +13,13 @@ sudo apt update
 sudo apt upgrade -y
 
 # install packages
-sudo apt install -y aria2 curl ffmpeg git pipx python3 wget zsh
+sudo apt install -y aria2 curl ffmpeg git megatools pipx python3 wget zsh
 
 # install pip packages
 pipx install gallery_dl mutagen yt-dlp
 
 # create dirs
-mkdir -p "$dl"/{Aria2,GalleryDL,Git,Websites,Wget}
+mkdir -p "$dl"/{Aria2,GalleryDL,Git,Mega,Websites,Wget}
 
 #############
 # OH-MY-ZSH #

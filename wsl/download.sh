@@ -35,6 +35,7 @@ echo "${LY}k${R}) Download with gallery-dl"
 echo "${LY}i${R}) Download with gallery-dl (images only)"
 echo "${LY}w${R}) Download with wget"
 echo "${LY}a${R}) Download with aria2"
+echo "${LY}n${R}) Download with megatools"
 echo "${LY}g${R}) Clone git"
 echo "${LY}s${R}) Clone website"
 echo "${LY}x${R}) ${LR}Exit${R}"
@@ -157,6 +158,25 @@ a)
     echo "${LB}Done.${R}"
     sleep 3s
   else
+    echo "${LR}Error."
+    echo ""
+    echo "${R}Press any key to exit..."
+    read -k 1 -r -s
+  fi
+  ;;
+
+#############
+# MEGATOOLS #
+#############
+
+n)
+  megadl --path="$dl/Mega/" $target
+  if [ $? -eq 0 ]; then
+    termux-toast -g top -b white -c black Download finished
+    echo "${LB}Done.${R}"
+    sleep 3s
+  else
+    termux-toast -g top -b white -c red Error
     echo "${LR}Error."
     echo ""
     echo "${R}Press any key to exit..."
