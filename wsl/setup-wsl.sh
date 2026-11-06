@@ -13,7 +13,7 @@ sudo apt update
 sudo apt upgrade -y
 
 # install packages
-sudo apt install -y aria2 curl ffmpeg git megatools pipx python3 wget zsh
+sudo apt install -y aria2 curl eza ffmpeg git megatools pipx python3 wget zsh
 
 # install pip packages
 pipx install gallery_dl mutagen yt-dlp
@@ -39,3 +39,23 @@ echo -e 'prompt_context() {\n  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIE
 
 # change shell
 chsh -s "$(command -v zsh)"
+
+##############
+# CHPWD HOOK #
+##############
+
+# set chpwd hook
+cat > "$HOME/.zshrc"<< EOF
+
+chpwd() {
+  eza -aF --group-directories-first
+}
+EOF
+
+##########
+# FINISH #
+##########
+
+# echo
+echo "Setup done."
+read -n 1 -r -s
