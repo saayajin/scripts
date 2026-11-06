@@ -5,6 +5,16 @@ export PATH="$HOME/.local/bin:$PATH"
 # variables
 target=$(powershell.exe -command "Get-Clipboard" | tr -d '\r')
 dl=$(wslpath -u "$(powershell.exe -NoProfile -command "(New-Object -ComObject Shell.Application).NameSpace('shell:Downloads').Self.Path" | tr -d '\r')")
+winuser=$(wslpath -u "$(powershell.exe -NoProfile -command '$env:USERPROFILE' | tr -d '\r')")
+cookies="$winuser/Sync/Keys/cookies.txt"
+
+ck=(); wck=(); ack=()
+if [[ -f "$cookies" ]]; then
+  ck=(--cookies "$cookies")
+  wck=(--load-cookies "$cookies")
+  ack=(--load-cookies="$cookies")
+  cki=" 🍪"
+fi
 
 # colors
 LR='\e[1;31m' # light red
@@ -26,7 +36,7 @@ fi
 echo "Analysing URL..."
 echo "[$target]"
 echo ""
-echo "${LG}What should i do?"
+echo "${LG}What should i do?${cki}"
 echo ""
 echo "${LY}v${R}) Download video"
 echo "${LY}f${R}) Download video (Select format)"
@@ -48,7 +58,7 @@ case $CHOICE in
 ################
 
 v)
-  yt-dlp -f "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b" --no-mtime -o "$dl/Video/%(title)s.%(ext)s" "$target"
+  yt-dlp "${ck[@]}" -f "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b" --no-mtime -o "$dl/Video/%(title)s.%(ext)s" "$target"
   if [ $? -eq 0 ]; then
     echo "${LB}Done.${R}"
     sleep 3s
@@ -68,7 +78,7 @@ f)
   yt-dlp -F "$target"
   echo "${LG}Select the format:${R}"
   read FORMAT
-  yt-dlp -f "$FORMAT" --no-mtime -o "$dl/Video/%(title)s.%(ext)s" "$target"
+  yt-dlp "${ck[@]}" -f "$FORMAT" --no-mtime -o "$dl/Video/%(title)s.%(ext)s" "$target"
   if [ $? -eq 0 ]; then
     echo "${LB}Done.${R}"
     sleep 3s
@@ -85,7 +95,7 @@ f)
 ################
 
 m)
-  yt-dlp -x --audio-format mp3 --audio-quality 0 --embed-thumbnail --convert-thumbnail jpg --ppa "EmbedThumbnail+ffmpeg_o:-c:v mjpeg -q:v 2 -vf \"crop=min(iw\\,ih):min(iw\\,ih),scale=720:720\"" --exec ffprobe --embed-metadata --no-mtime -o "$dl/Music/%(artist,uploader)s - %(title)s.%(ext)s" "$target"
+  yt-dlp "${ck[@]}" -x --audio-format mp3 --audio-quality 0 --embed-thumbnail --convert-thumbnail jpg --ppa "EmbedThumbnail+ffmpeg_o:-c:v mjpeg -q:v 2 -vf \"crop=min(iw\\,ih):min(iw\\,ih),scale=720:720\"" --exec ffprobe --embed-metadata --no-mtime -o "$dl/Music/%(artist,uploader)s - %(title)s.%(ext)s" "$target"
   if [ $? -eq 0 ]; then
     echo "${LB}Done.${R}"
     sleep 3s
@@ -102,7 +112,7 @@ m)
 ##############
 
 k)
-  gallery-dl --no-mtime -f '{filename}.{extension}' -d "$dl/GalleryDL" "$target"
+  gallery-dl "${ck[@]}" --no-mtime -f '{filename}.{extension}' -d "$dl/GalleryDL" "$target"
   if [ $? -eq 0 ]; then
     echo "${LB}Done.${R}"
     sleep 3s
@@ -119,7 +129,7 @@ k)
 #####################
 
 i)
-  gallery-dl --no-mtime -f '{filename}.{extension}' --filter "extension in ('apng','bmp','dng','gif','heic','jpeg','jpg','png','svg','tiff','webp')" -d "$dl/GalleryDL" "$target"
+  gallery-dl "${ck[@]}" --no-mtime -f '{filename}.{extension}' --filter "extension in ('apng','bmp','dng','gif','heic','jpeg','jpg','png','svg','tiff','webp')" -d "$dl/GalleryDL" "$target"
   if [ $? -eq 0 ]; then
     echo "${LB}Done.${R}"
     sleep 3s
@@ -136,7 +146,7 @@ i)
 ########
 
 w)
-  wget -P "$dl/Wget" "$target"
+  wget "${wck[@]}" -P "$dl/Wget" "$target"
   if [ $? -eq 0 ]; then
     echo "${LB}Done.${R}"
     sleep 3s
@@ -153,7 +163,7 @@ w)
 #########
 
 a)
-  aria2c -d "$dl/Aria2" "$target"
+  aria2c "${ack[@]}" -d "$dl/Aria2" "$target"
   if [ $? -eq 0 ]; then
     echo "${LB}Done.${R}"
     sleep 3s
@@ -208,7 +218,7 @@ g)
 #################
 
 s)
-  wget --mirror --page-requisites --html-extension --convert-links -P "$dl/Websites" "$target"
+  wget "${wck[@]}" --mirror --page-requisites --html-extension --convert-links -P "$dl/Websites" "$target"
   if [ $? -eq 0 ]; then
     echo "${LB}Done.${R}"
     sleep 3s
