@@ -46,11 +46,18 @@ chsh -s "$(command -v zsh)"
 
 # set chpwd hook
 cat > "$HOME/.zshrc"<< EOF
-
 chpwd() {
   eza -aF --group-directories-first
 }
+
 EOF
+
+##############
+# ENABLE ZMV #
+##############
+
+# set chpwd hook
+echo -e 'autoload zmv\n' >> "$HOME/.zshrc"
 
 ##########
 # FINISH #
