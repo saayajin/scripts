@@ -15,7 +15,7 @@ rm -rf ~/.scripts
 git clone --single-branch --branch main https://github.com/majinsaay/scripts.git ~/.scripts
 
 # change working dir
-cd ~/.scripts/termux || exit 1
+cd "$HOME/.scripts/termux" || exit 1
 
 # make executable
 chmod u+x *
@@ -28,9 +28,10 @@ END_MARKER="# === SCRIPTS ALIASES - END ==="
 sed -i "/$BEGIN_MARKER/,/$END_MARKER/d" ~/.zshrc
 
 # generate new block beginning
-echo "" >> ~/.zshrc
-echo "$BEGIN_MARKER" >> ~/.zshrc
-echo "" >> ~/.zshrc
+cat > "$HOME/.zshrc"<< EOF
+# === SCRIPTS ALIASES - BEGIN ===
+
+EOF
 
 # make alias for each script
 for i in *.sh; do
@@ -38,9 +39,11 @@ for i in *.sh; do
 done
 
 # close block
-echo "" >> ~/.zshrc
-echo "$END_MARKER" >> "$ZSHRC"
-echo "" >> ~/.zshrc
+cat > "$HOME/.zshrc"<< EOF
+
+# === SCRIPTS ALIASES - END ===
+
+EOF
 
 # finish
 echo ""
