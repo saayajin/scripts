@@ -35,7 +35,7 @@ cp "$HOME/.oh-my-zsh/templates/zshrc.zsh-template" "$HOME/.zshrc"
 sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/' "$HOME/.zshrc"
 
 # add prompt context
-echo -e 'prompt_context() {\n  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then\n    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"\n  fi\n}\n' >> "$HOME/.zshrc"
+echo -e '\nprompt_context() {\n  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then\n    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"\n  fi\n}\n' >> "$HOME/.zshrc"
 
 # change shell
 chsh -s "$(command -v zsh)"
@@ -56,8 +56,18 @@ EOF
 # ENABLE ZMV #
 ##############
 
-# set chpwd hook
+# insert autoload
 echo -e 'autoload zmv\n' >> "$HOME/.zshrc"
+
+##################
+# ZSH HELIX MODE #
+##################
+
+# install zsh-helix-mode plugin
+git clone https://github.com/Multirious/zsh-helix-mode --depth 1 "$HOME/.oh-my-zsh/custom/plugins/zsh-helix-mode"
+
+# enable zsh-helix-mode plugin
+sed -i 's/^plugins=(\(.*\))/plugins=(\1 zsh-helix-mode)/' "$HOME/.zshrc"
 
 ##########
 # FINISH #

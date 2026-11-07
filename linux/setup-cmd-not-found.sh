@@ -19,10 +19,13 @@ sudo pkgfile -u
 # enable automatic update
 sudo systemctl enable --now pkgfile-update.timer
 
+##########
+# FINISH #
+##########
 
-# finish
+# echo
 echo ""
-echo "${LB}Done${R}"
+echo "Setup done."
 echo ""
 echo "Press any key to exit."
-read -k 1 -r -s
+read -n 1 -r -s
