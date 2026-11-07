@@ -55,6 +55,9 @@ sed -i 's/^plugins=(\(.*\))/plugins=(\1 aliases command-not-found fzf history-su
 # FINISH #
 ##########
 
+# change shell
+chsh -s "$(command -v zsh)"
+
 # echo
 echo ""
 echo "Setup done."
