@@ -112,7 +112,7 @@ m)
 ##############
 
 k)
-  gallery-dl "${ck[@]}" --no-mtime -f '{filename}.{extension}' -d "$dl/GalleryDL" "$target"
+  gallery-dl "${ck[@]}" --no-mtime -f '{filename}.{extension}' -o directory="" -d "$dl/GalleryDL" "$target"
   if [ $? -eq 0 ]; then
     echo "${LB}Done.${R}"
     sleep 3s
@@ -129,7 +129,7 @@ k)
 #####################
 
 i)
-  gallery-dl "${ck[@]}" --no-mtime -f '{filename}.{extension}' --filter "extension in ('apng','bmp','dng','gif','heic','jpeg','jpg','png','svg','tiff','webp')" -d "$dl/GalleryDL" "$target"
+  gallery-dl "${ck[@]}" --no-mtime -f '{filename}.{extension}' --filter "extension in ('apng','bmp','dng','gif','heic','jpeg','jpg','png','svg','tiff','webp')" -o directory="" -d "$dl/GalleryDL" "$target"
   if [ $? -eq 0 ]; then
     echo "${LB}Done.${R}"
     sleep 3s
