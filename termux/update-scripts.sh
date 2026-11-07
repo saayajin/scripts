@@ -28,7 +28,7 @@ END_MARKER="# === SCRIPTS ALIASES - END ==="
 sed -i "/$BEGIN_MARKER/,/$END_MARKER/d" ~/.zshrc
 
 # generate new block beginning
-cat > "$HOME/.zshrc"<< EOF
+cat >> "$HOME/.zshrc"<< EOF
 # === SCRIPTS ALIASES - BEGIN ===
 
 EOF
@@ -39,7 +39,7 @@ for i in *.sh; do
 done
 
 # close block
-cat > "$HOME/.zshrc"<< EOF
+cat >> "$HOME/.zshrc"<< EOF
 
 # === SCRIPTS ALIASES - END ===
 

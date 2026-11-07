@@ -45,7 +45,7 @@ chsh -s "$(command -v zsh)"
 ##############
 
 # set chpwd hook
-cat > "$HOME/.zshrc"<< EOF
+cat >> "$HOME/.zshrc"<< EOF
 chpwd() {
   eza -aF --group-directories-first
 }
