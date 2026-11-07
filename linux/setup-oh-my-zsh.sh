@@ -38,15 +38,18 @@ EOF
 # insert autoload
 echo -e 'autoload zmv\n' >> "$HOME/.zshrc"
 
-##################
-# ZSH HELIX MODE #
-##################
+###############
+# ZSH PLUGINS #
+###############
 
-# install zsh-helix-mode plugin
+# install zsh-helix-mode
 git clone https://github.com/Multirious/zsh-helix-mode --depth 1 "$HOME/.oh-my-zsh/custom/plugins/zsh-helix-mode"
 
-# enable zsh-helix-mode plugin
-sed -i 's/^plugins=(\(.*\))/plugins=(\1 zsh-helix-mode)/' "$HOME/.zshrc"
+# install zsh-autoggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+
+# enable plugins
+sed -i 's/^plugins=(\(.*\))/plugins=(\1 aliases command-not-found fzf history-substring-search magic-enter ssh sudo zsh-autosuggestions zsh-helix-mode)/' "$HOME/.zshrc"
 
 ##########
 # FINISH #
