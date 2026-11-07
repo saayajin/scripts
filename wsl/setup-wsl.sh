@@ -13,7 +13,7 @@ sudo apt update
 sudo apt upgrade -y
 
 # install packages
-sudo apt install -y aria2 curl eza ffmpeg git megatools pipx python3 wget zsh
+sudo apt install -y aria2 curl eza ffmpeg fzf git megatools pipx python3 wget zsh
 
 # install pip packages
 pipx install gallery_dl mutagen yt-dlp
