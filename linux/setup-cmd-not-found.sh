@@ -25,7 +25,7 @@ sudo systemctl enable --now pkgfile-update.timer
 
 # echo
 echo ""
-echo "Setup done."
+echo "${LB}Setup done.${R}"
 echo ""
 echo "Press any key to exit."
-read -n 1 -r -s
+read -k 1 -r -s
