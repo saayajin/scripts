@@ -8,6 +8,7 @@
 LB='\e[1;34m' # light blue
 R='\e[0m'     # no color
 
+main() {
 # remove old repo dir
 rm -rf ~/.scripts
 
@@ -45,9 +46,20 @@ cat >> "$HOME/.zshrc"<< EOF
 
 EOF
 
-# finish
+##########
+# FINISH #
+##########
+
+# return to home
+cd "$HOME" || exit 1
+
+# echo
 echo ""
 echo "${LB}Done"
 echo ""
 echo "${R}Press any key to exit..."
 read -k 1 -r -s
+}
+
+main "$@"
+return
